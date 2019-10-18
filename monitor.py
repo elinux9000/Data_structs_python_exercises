@@ -43,7 +43,7 @@ if __name__ == "__main__":
 		try:
 			files = get_python_files()
 			for f in files:
-				command = "yapf --style style.yapf -i " + f
+				command = "yapf --style ../style.yapf -i " + f
 				run_process(command)
 		except subprocess.CalledProcessError as e:
 			print("Error")
