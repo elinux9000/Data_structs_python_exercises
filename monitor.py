@@ -1,7 +1,7 @@
 import sys
 import subprocess
 import os
-
+import traceback
 
 def usage():
 	print("\nusage:\n python monitor.py PYTHON_FILE [OPTIONS]\n")
@@ -41,20 +41,26 @@ if __name__ == "__main__":
 	#run yapf on all python files in current directory
 	while True:
 		try:
+			yapf_success = True
 			files = get_python_files()
 			for f in files:
 				command = "yapf --style ../style.yapf -i " + f
 				run_process(command)
 		except subprocess.CalledProcessError as e:
-			print("Error")
+			print("Error running yapf")
 			print(e.output.decode("utf-8"))
-			if input("Error running yapf.  Proceed?(y)") != "y":
-				continue
-		command = "python "
-		for arg in sys.argv[1:]:
-			command += arg
-		print(command)
-		run_process(command)
+			yapf_success = False
+
+		if yapf_success:
+			command = "python "
+			for arg in sys.argv[1:]:
+				command += arg
+			print(command)
+			try:
+				run_process(command)
+			except Exception as e:
+				print(e.output.decode("utf-8"))
+
 		try:
 			inotify_wait()
 		except subprocess.CalledProcessError as e:
