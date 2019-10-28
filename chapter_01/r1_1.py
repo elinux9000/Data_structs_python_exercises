@@ -1,4 +1,4 @@
-def multiple(n, m):
+def is_multiple(n, m):
 	#Write a short python function is_multiple(n,m) that takes 2 integer values and returns True if n is a multiple of m and False otherse
 	int_type = type(1)
 	if type(n) != int_type or type(m) != int_type:

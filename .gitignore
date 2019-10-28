@@ -1,0 +1,4 @@
+book.sh
+*__pycache__
+*cscope.out
+*cscope.files

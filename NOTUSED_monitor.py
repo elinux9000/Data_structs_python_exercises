@@ -39,6 +39,7 @@ if __name__ == "__main__":
 	if len(sys.argv) < 2:
 		usage()
 	#run yapf on all python files in current directory
+	run_process("ls *.py > cscope.files")
 	while True:
 		try:
 			yapf_success = True
@@ -65,3 +66,7 @@ if __name__ == "__main__":
 			inotify_wait()
 		except subprocess.CalledProcessError as e:
 			print(e.output.decode("utf-8"))
+		run_process("clear")
+		print(chr(27)+'[2j')
+		print('\033c')
+		print('\x1bc')
